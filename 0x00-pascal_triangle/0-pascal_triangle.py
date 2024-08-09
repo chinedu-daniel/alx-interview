@@ -8,16 +8,18 @@ def pascal_triangle(n):
     Returns a list of integers
     """
 
-    m = []
     if n <= 0:
-        return m
-    m = [[1]]
-        for i in range(1, n):
-            temp = [1]
+        return []
 
-            for j in range(len(m[i -1]) -1):
-                curr = m[i - 1]
-                temp.append(m[i - 1][j] + m[i - 1][j + 1])
-            temp.append(1)
-            m.append(temp)
-        return m
+    triangle = []
+        for i in range(n):
+            row = [1]
+
+            for j in range(1 - i):
+                row.append(triangle[i - 1][j-1] + triangle[i - 1][j])
+
+            for i > 0:
+                row.append(1)
+            triangle.append(row)
+
+        return triangle
