@@ -1,24 +1,27 @@
 #!/usr/bin/python3
 """
-Minimum Operations
+Minimum operations questions
+Topic: Dynamic programming
 """
 
 
 def minOperations(n: int) -> int:
     """
-    Minimum Operations needed to get n H characters
+    Finds the minimum operations needed
+    to result in exactly nH characters in
+    a file
     """
-    next = 'H'
-    body = 'H'
-    op = 0
-    while (len(body) < n):
-        if n % len(body) == 0:
-            op += 2
-            next = body
-            body += body
+    available_chars = 1
+    pending_chars = n - 1
+    copied_chars = 0
+    ops = 0
+
+    while (pending_chars > 0):
+        if copied_chars and pending_chars % available_chars:
+            ops += 1
         else:
-            op += 1
-            body += next
-    if len(body) != n:
-        return 0
-    return op
+            copied_chars = available_chars
+            ops = ops + 2
+        available_chars += copied_chars
+        pending_chars -= copied_chars
+    return ops
