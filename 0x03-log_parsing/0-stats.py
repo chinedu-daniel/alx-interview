@@ -18,7 +18,7 @@ if __name__ == "__main__":
         Print result
         '''
         print("File size: {}".format(size))
-        for code in sorted (status_codes.keys()):
+        for code in sorted(status_codes.keys()):
             if status_code[code] > 0:
                 print("{}: {}".format(code, status_codes[code]))
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
             total_size += file_size
 
             if status_code in status_codes:
-                status_codes[status_code] +=1
+                status_codes[status_code] += 1
 
             if line_count % 10 == 0:
                 print_stats(total_size, status_codes)
