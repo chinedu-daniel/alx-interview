@@ -9,35 +9,40 @@ if __name__ == "__main__":
     '''
     Run only when not imported
     '''
-    status = {'200', '301', '400', '401', '403', '404', '405', '500'}
-    count = 0
-    size = 0
+    status_code = {'200', '301', '400', '401', '403', '404', '405', '500'}
+    line_count = 0
+    total_size = 0
 
     def print_res(status, size):
         '''
         Print result
         '''
         print("File size: {}".format(size))
-        status = dict(sorted(status.items()))
-        for k, v in status.items():
-            if v > 0:
-                print("{}: {}".format(k, v))
+        for code in sorted (status_codes.keys()):
+            if status_code[code] > 0:
+                print("{}: {}".format(code, status_codes[code]))
 
     try:
         for line in sys.stdin:
-            count += 1
-            ln = line.split(" ")
+            line_count += 1
+            parts = line.split()
+
             try:
-                code = ln[-2]
-                size += int(ln[-1])
-                if code in status.keys():
-                    status[code] += 1
-            except BaseException:
-                pass
-            if count == 10:
-                print_res(status, size)
-                count = 0
+                file_size = int(parts[-1])
+                status_code = parts[-2]
+            except (IndexError, ValueError):
+                continue
+
+            total_size += file_size
+
+            if status_code in status_codes:
+                status_codes[status_code] +=1
+
+            if line_count % 10 == 0:
+                print_stats(total_size, status_codes)
 
     except KeyboardInterrupt:
-        print_res(status, size)
-    print_res(status, size)
+        print_stats(total_size, status_codes)
+        raise
+
+    print_stats(total_size, status_codes)
