@@ -34,7 +34,7 @@ def validUTF8(data):
         else:
             # check for valid continuation byte
             if not (byte & mask1 and not (byte & mask2)):
-                return false
+                return False
 
             # decrease the remaining bytes
             n_bytes -= 1
