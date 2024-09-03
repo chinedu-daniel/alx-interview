@@ -35,7 +35,8 @@ def validUTF8(data):
             # check for valid continuation byte
             if not (byte & mask1 and not (byte & mask2)):
                 return false
-            # decrease the remaining bytes 
+
+            # decrease the remaining bytes
             n_bytes -= 1
 
             # no remaining bytes expected, data is valid UTF-8
